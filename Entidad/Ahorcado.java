@@ -3,7 +3,7 @@ package Entidad;
 public class Ahorcado {
   
   private int nivel, intentosXnivel;
-  private String[] arregloNivel;
+  private String[] cadenaNivel;
   private String palabraAjugar;
   
   
@@ -14,7 +14,7 @@ public class Ahorcado {
   public Ahorcado(int nivel, int intentosXnivel, String[] arregloNivel, String palabraAjugar) {
     this.nivel = nivel;
     this.intentosXnivel = intentosXnivel;
-    this.arregloNivel = arregloNivel;
+    this.cadenaNivel = arregloNivel;
     this.palabraAjugar = palabraAjugar;
   }
 
@@ -39,13 +39,13 @@ public class Ahorcado {
   }
 
 
-  public String[] getArregloNivel() {
-    return arregloNivel;
+  public String[] getCadenaNivel() {
+    return cadenaNivel;
   }
 
 
-  public void setArregloNivel(String[] arregloNivel) {
-    this.arregloNivel = arregloNivel;
+  public void setCadenaNivel(String[] arregloNivel) {
+    this.cadenaNivel = arregloNivel;
   }
 
 
