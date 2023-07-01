@@ -11,6 +11,7 @@ public class AhorcadoServicio {
   Ahorcado ahorcado = new Ahorcado();
   Scanner scan = new Scanner(System.in);
 
+
   public void crearJuego() {
 
     System.out.println("\nBienvenidos a EL AHORCADO (^o^)\n");
@@ -20,7 +21,9 @@ public class AhorcadoServicio {
     palabraReemplazada();
     System.out.println(ahorcado.getPalabraAjugar());
     System.out.println("Descubrir palabra: " + palabraReemplazada());
+    adivinarLetra();
   }
+
 
   public int elegirNivel() {
   
@@ -43,7 +46,7 @@ public class AhorcadoServicio {
 
 
   public void intentos(int nivel) {
-    // Se setea la cantidad de intentos posibles de acuerdo al nivel
+    // Se setea la cantidad de intentos posibles de acuerdo al nivel elegido
     switch(nivel) {
       case 1: ahorcado.setIntentosXnivel(3); break;
       case 2: ahorcado.setIntentosXnivel(4); break;
@@ -73,7 +76,7 @@ public class AhorcadoServicio {
 
 
   public void palabraAzar() {
-  // De la cadena seleccionada se seleccionará una palabra random para jugar
+  // De la cadena de palabras del nivel se seleccionará una palabra random para jugar
     Random rand = new Random();
     int num = rand.nextInt(5)+1;
     String[] cadena = ahorcado.getCadenaNivel();
@@ -85,7 +88,7 @@ public class AhorcadoServicio {
   public String palabraReemplazada() {
   /* 
    * Metodo para que la palabra a jugar se muestre asi:
-   * hola -> _ _ _ _
+   * hola ->  _ _ _ _
    */
   
     // Guardo la palabra que se va a jugar en esta variable
@@ -109,11 +112,35 @@ public class AhorcadoServicio {
   }
 
 
-  public void adivinarLetra() {
+  public void letraAdivinada() {
     System.out.println("Adivinar letra >> ");
     ahorcado.setLetraAdivinada(scan.next().charAt(0));
   }
     
   
+  public void adivinarLetra() {
+    String palabra = ahorcado.getPalabraAjugar();
+    int contador = 0;
+    
+    for (int i = 0; i < ahorcado.getIntentosXnivel(); i++) {
+      letraAdivinada(); 
+      contador++;
+      
+      if(verificar()) {
+        System.out.println("adivinaste. Crear metodo para reemplazar letras");
+      } else {
+        adivinarLetra();
+      }  
+    }
+
+  }
+
+
+  public boolean verificar() {
+  // Si la palabra contiene la letra adivinada el metodo retorna true
+    String palabra = ahorcado.getPalabraAjugar();
+    if(palabra.contains(String.valueOf(ahorcado.getLetraAdivinada()))) return true; else return false;
+  }
+
 
 }
