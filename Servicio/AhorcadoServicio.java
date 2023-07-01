@@ -82,6 +82,7 @@ public class AhorcadoServicio {
     String[] cadena = ahorcado.getCadenaNivel();
 
     ahorcado.setPalabraAjugar(cadena[num-1]);
+    mostrarLetras();
   }
 
 
@@ -90,7 +91,6 @@ public class AhorcadoServicio {
    * Metodo para que la palabra a jugar se muestre asi:
    * hola ->  _ _ _ _
    */
-
     String palabra = ahorcado.getPalabraAjugar();
     int tamanio = (palabra.length()*2)-1;
     char[] palabraNueva = new char[tamanio];
@@ -98,7 +98,6 @@ public class AhorcadoServicio {
     for (int i = 0; i < tamanio; i++) {
         if (i % 2 == 0) palabraNueva[i] = '_'; else palabraNueva[i] = ' ';
     }
-
     String palabraFinal = new String(palabraNueva);
     return palabraFinal;
   }
@@ -113,50 +112,73 @@ public class AhorcadoServicio {
   public boolean verificar() {
   // Si la palabra contiene la letra adivinada el metodo retorna true
     String palabra = ahorcado.getPalabraAjugar();
-    if(palabra.contains(String.valueOf(ahorcado.getLetraAdivinada()))) return true; else return false;
+    if(palabra.contains(String.valueOf(ahorcado.getLetraAdivinada()))) return true; 
+    else return false;
   }
 
 
   public void adivinarLetra() {
-    
+    int contador = 1;
     for (int i = 0; i < ahorcado.getIntentosXnivel(); i++) {
+      System.out.println("Intento " + contador + ": ");
       letraAdivinada(); 
       if(verificar()) {
-        System.out.println("adivinaste. Crear metodo para reemplazar letras");
-        reemplazarLetra();
+        System.out.println("Bien!");
+        mostrarLetrasAdivinadas();
+        agregarEspacios(ahorcado.getMostrarLetras());
       } else {
+        System.out.println("Vuelve a intentarlo.");
         adivinarLetra();
-      }  
+      }
+      contador++;
     }
   }
 
 
-  public void reemplazarLetra() {
-    char letra = ahorcado.getLetraAdivinada();
-    String palabra = ahorcado.getPalabraAjugar();
+  public void agregarEspacios(String palabra) {
     int tamanio = (palabra.length()*2)-1;
     char[] palabraNueva = new char[tamanio];
 
-    // for (int i = 0; i < tamanio; i++) {
-    //     if (i % 2 == 0) {
-    //         int letraIndex = i / 2; // Índice de la letra en la palabra original
-    //         palabraNueva[i] = palabra.charAt(letraIndex);
-    //     } else {
-    //         palabraNueva[i] = ' ';
-    //     }
-    // }
-
-    for (int i = 0; i < palabra.length(); i++) {
-      if(palabra.charAt(i) != letra) {
-        palabraNueva[i] = '_';
-      } else {
-        palabraNueva[i] = palabra.charAt(i);
-      }
+    for (int i = 0; i < tamanio; i++) {
+        if (i % 2 == 0) {
+            int letraIndex = i / 2; // Índice de la letra en la palabra original
+            palabraNueva[i] = palabra.charAt(letraIndex);
+        } else {
+            palabraNueva[i] = ' ';
+        }
     }
-
     String palabraFinal = new String(palabraNueva);
     System.out.println(palabraFinal);
+  }
 
+
+  public void mostrarLetras() {
+    // Metodo para crear la palabra de forma escondida > ____
+    char[] palabraNueva = new char[ahorcado.getPalabraAjugar().length()];
+    for (int i = 0; i < palabraNueva.length; i++) {
+      palabraNueva[i] = '_';
+    }
+    String palabraFinal = new String(palabraNueva);
+    ahorcado.setMostrarLetras(palabraFinal);
+  }
+
+
+  public void mostrarLetrasAdivinadas(){
+    String palabraAjugar = ahorcado.getPalabraAjugar();
+    String palabraAmodificar = ahorcado.getMostrarLetras();
+    char letra = ahorcado.getLetraAdivinada();
+    char[] palabraNueva = new char[palabraAjugar.length()];
+
+    for (int i = 0; i < palabraNueva.length; i++) {
+      if(palabraAjugar.charAt(i) == letra) {
+        palabraNueva[i] = palabraAjugar.charAt(i);
+      } else {
+        palabraNueva[i] = palabraAmodificar.charAt(i);
+      }
+    }
+    String palabraFinal = new String(palabraNueva);
+    ahorcado.setMostrarLetras(palabraFinal);
+    // System.out.println(ahorcado.getMostrarLetras());
   }
 
 }

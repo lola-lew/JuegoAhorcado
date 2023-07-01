@@ -6,18 +6,20 @@ public class Ahorcado {
   private String[] cadenaNivel;
   private String palabraAjugar;
   private Character letraAdivinada;
+  private String mostrarLetras;
 
 
   public Ahorcado() {
   }
 
 
-  public Ahorcado(int nivel, int intentosXnivel, String[] arregloNivel, String palabraAjugar, Character letraAdivinada) {
+  public Ahorcado(int nivel, int intentosXnivel, String[] arregloNivel, String palabraAjugar, Character letraAdivinada, String mostrarLetras) {
     this.nivel = nivel;
     this.intentosXnivel = intentosXnivel;
     this.cadenaNivel = arregloNivel;
     this.palabraAjugar = palabraAjugar;
     this.letraAdivinada = letraAdivinada;
+    this.mostrarLetras = mostrarLetras;
   }
 
   public int getNivel() {
@@ -60,4 +62,11 @@ public class Ahorcado {
     this.letraAdivinada = letraAdivinada;
   }
   
+  public String getMostrarLetras() {
+    return mostrarLetras;
+  }
+
+  public void setMostrarLetras(String mostrarLetras) {
+    this.mostrarLetras = mostrarLetras;
+  }
 }
