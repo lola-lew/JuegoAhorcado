@@ -17,16 +17,15 @@ public class AhorcadoServicio {
     elegirNivel();
     System.out.println("Para el nivel " + ahorcado.getNivel() + " tendrás " + ahorcado.getIntentosXnivel() + " intentos.");
     cadenaNivel();
-    palabraReemplazada();
+    // palabraReemplazada();
     System.out.println(ahorcado.getPalabraAjugar());
-    System.out.println("Descubrir palabra: " + palabraReemplazada());
+    System.out.println("Descubrir palabra: ");
+    agregarEspacios(ahorcado.getMostrarLetras());
     adivinarLetra();
-    // reemplazarLetra();
   }
 
 
   public int elegirNivel() {
-  
     System.out.println("Elegir nivel 1, 2 o 3: ");
     int nivel = Integer.parseInt(scan.nextLine());
 
@@ -37,7 +36,6 @@ public class AhorcadoServicio {
         nivel = Integer.parseInt(scan.nextLine());
       } while (nivel != 1 && nivel != 2 && nivel != 3);
     }
-    
     ahorcado.setNivel(nivel);
     intentos(nivel);
 
@@ -70,7 +68,6 @@ public class AhorcadoServicio {
       case 3: ahorcado.setCadenaNivel(palabras3); break;
       default: elegirNivel();
     }
-
     palabraAzar();
   }
 
@@ -83,23 +80,6 @@ public class AhorcadoServicio {
 
     ahorcado.setPalabraAjugar(cadena[num-1]);
     mostrarLetras();
-  }
-
-
-  public String palabraReemplazada() {
-  /* 
-   * Metodo para que la palabra a jugar se muestre asi:
-   * hola ->  _ _ _ _
-   */
-    String palabra = ahorcado.getPalabraAjugar();
-    int tamanio = (palabra.length()*2)-1;
-    char[] palabraNueva = new char[tamanio];
-
-    for (int i = 0; i < tamanio; i++) {
-        if (i % 2 == 0) palabraNueva[i] = '_'; else palabraNueva[i] = ' ';
-    }
-    String palabraFinal = new String(palabraNueva);
-    return palabraFinal;
   }
 
 
