@@ -13,12 +13,13 @@ public class AhorcadoServicio {
 
   public void crearJuego() {
 
-    System.out.println("Bienvenidos a EL AHORCADO (^o^)");
+    System.out.println("\nBienvenidos a EL AHORCADO (^o^)\n");
     elegirNivel();
     System.out.println("Para el nivel " + ahorcado.getNivel() + " tendrás " + ahorcado.getIntentosXnivel() + " intentos.");
     cadenaNivel();
     palabraReemplazada();
-    System.out.println("Descubrir palabra: " + Arrays.toString(palabraReemplazada()));
+    System.out.println(ahorcado.getPalabraAjugar());
+    System.out.println("Descubrir palabra: " + palabraReemplazada());
   }
 
   public int elegirNivel() {
@@ -40,7 +41,9 @@ public class AhorcadoServicio {
     return nivel;
   }
 
+
   public void intentos(int nivel) {
+    // Se setea la cantidad de intentos posibles de acuerdo al nivel
     switch(nivel) {
       case 1: ahorcado.setIntentosXnivel(3); break;
       case 2: ahorcado.setIntentosXnivel(4); break;
@@ -49,10 +52,11 @@ public class AhorcadoServicio {
     }
   }
 
+
   public void cadenaNivel() {
     String[] palabras1, palabras2, palabras3 = new String[5];
     int nivel = ahorcado.getNivel();
-
+  // Se setea la cadena de palabras que corresponde al nivel elegido
     palabras1 = new String[]{"hola", "gato", "mundo", "mama", "lindo"};
     palabras2 = new String[]{"edificio", "ahorcado", "galaxia", "estrella", "universo"};
     palabras3 = new String[]{"sentimiento", "vegetariano", "bioquimica", "arquitectura", "contemplacion"};
@@ -67,7 +71,9 @@ public class AhorcadoServicio {
     palabraAzar();
   }
 
+
   public void palabraAzar() {
+  // De la cadena seleccionada se seleccionará una palabra random para jugar
     Random rand = new Random();
     int num = rand.nextInt(5)+1;
     String[] cadena = ahorcado.getCadenaNivel();
@@ -75,11 +81,39 @@ public class AhorcadoServicio {
     ahorcado.setPalabraAjugar(cadena[num-1]);
   }
 
-  public String[] palabraReemplazada() {
-    String[] palabra = new String[ahorcado.getPalabraAjugar().length()];
-    Arrays.fill(palabra, 0, ahorcado.getPalabraAjugar().length(), " _ ");
-    // System.out.println(palabraReemplazada);
-    return palabra;
+
+  public String palabraReemplazada() {
+  /* 
+   * Metodo para que la palabra a jugar se muestre asi:
+   * hola -> _ _ _ _
+   */
+  
+    // Guardo la palabra que se va a jugar en esta variable
+    String palabra = ahorcado.getPalabraAjugar();
+
+    // Creo una palabraTamanio para agregar al length de palabra los espacios
+    String palabraTamanio = palabra.concat(palabra);
+
+    // Guardo el tamaño de la palabra larga para luego recorrer
+    int tamanio = palabraTamanio.length();
+
+    // Método para reemplazar caracteres en palabraTamanio
+    char[] caracteres = palabraTamanio.toCharArray();
+
+    for (int i = 0; i < tamanio; i++) {
+      if(i % 2 == 0) caracteres[i] = '_'; else caracteres[i] = ' ';
+    }
+    
+    String palabraNueva = new String(caracteres);
+    return palabraNueva;
   }
+
+
+  public void adivinarLetra() {
+    System.out.println("Adivinar letra >> ");
+    ahorcado.setLetraAdivinada(scan.next().charAt(0));
+  }
+    
+  
 
 }
