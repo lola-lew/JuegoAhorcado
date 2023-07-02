@@ -23,13 +23,13 @@ public class AhorcadoServicio {
 
   public int elegirNivel() {
     System.out.print("Elegir nivel 1, 2 o 3: ");
-    int nivel = Integer.parseInt(scan.nextLine());
+    int nivel = Integer.parseInt(scan.next());
 
     if(nivel != 1 && nivel != 2 && nivel != 3) {
       do {
         System.out.println("Ingrese un número válido por favor.");
         System.out.println("Elegir nivel 1, 2 o 3: ");
-        nivel = Integer.parseInt(scan.nextLine());
+        nivel = Integer.parseInt(scan.next());
       } while (nivel != 1 && nivel != 2 && nivel != 3);
     }
     ahorcado.setNivel(nivel);
@@ -141,13 +141,13 @@ public class AhorcadoServicio {
     int opc = 0;
     do {
       System.out.println("MENU\n1. Jugar. \n2.Salir.");
-      opc = Integer.parseInt(scan.nextLine());
+      opc = Integer.parseInt(scan.next());
     } while (opc != 1 && opc != 2);
 
     switch(opc) {
       case 1: crearJuego(); break;
       case 2: System.out.println("Saliste del juego."); break;
-      default: menu();
+      default: menu(); break;
     }
   }
 
