@@ -1,6 +1,5 @@
 package Servicio;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,20 +12,18 @@ public class AhorcadoServicio {
 
 
   public void crearJuego() {
-    System.out.println("\nHoli! Bienvenidos a EL AHORCADO (^o^)");
     elegirNivel();
     System.out.println("Para el nivel " + ahorcado.getNivel() + " tendrás " + ahorcado.getIntentosXnivel() + " intentos.");
     cadenaNivel();
-    // palabraReemplazada();
-    System.out.println(ahorcado.getPalabraAjugar());
-    System.out.println("Descubrir palabra: ");
+    // System.out.println(ahorcado.getPalabraAjugar());
+    System.out.print("Descubrir palabra: ");
     agregarEspacios(ahorcado.getMostrarLetras());
     adivinarLetra();
   }
 
 
   public int elegirNivel() {
-    System.out.println("Elegir nivel 1, 2 o 3: ");
+    System.out.print("Elegir nivel 1, 2 o 3: ");
     int nivel = Integer.parseInt(scan.nextLine());
 
     if(nivel != 1 && nivel != 2 && nivel != 3) {
@@ -84,7 +81,8 @@ public class AhorcadoServicio {
 
 
   public void letraAdivinada() {
-    System.out.println("Adivinar letra >> ");
+    // guardo la letra ingresada por el usuario
+    System.out.print("Adivinar letra: ");
     ahorcado.setLetraAdivinada(scan.next().charAt(0));
   }
     
@@ -99,18 +97,58 @@ public class AhorcadoServicio {
 
   public void adivinarLetra() {
     int contador = 1;
+    int intentoCorrecto = 0;
+
     for (int i = 0; i < ahorcado.getIntentosXnivel(); i++) {
-      System.out.println("Intento " + contador + ": ");
+      System.out.print("Intento " + contador + " >> ");
       letraAdivinada(); 
       if(verificar()) {
         System.out.println("Bien!");
         mostrarLetrasAdivinadas();
         agregarEspacios(ahorcado.getMostrarLetras());
+        intentoCorrecto ++;
+        contador++;
       } else {
-        System.out.println("Vuelve a intentarlo.");
-        adivinarLetra();
+        if(i == ahorcado.getIntentosXnivel()-1 && intentoCorrecto == 0) {
+          System.out.println("¡Suerte la próxima! :-)");
+          menu();
+        } else {
+          System.out.println("La letra no está.");       
+          mostrarLetrasAdivinadas();
+          agregarEspacios(ahorcado.getMostrarLetras());
+          contador++;
+        }
       }
-      contador++;
+    }
+
+    if(intentoCorrecto != 0) adivinarPalabra();
+  }
+
+
+  public void adivinarPalabra() {
+    String palabraAjugar = ahorcado.getPalabraAjugar();
+    
+    System.out.println("¿Cuál es la palabra?");
+    String palabraIngresada = scan.next().toLowerCase();
+
+    if(palabraAjugar.equals(palabraIngresada)) {
+      System.out.println("¡Felicidades! Adivinaste la palabra!");
+    } else { System.out.println("Estuvo cerca! Suerte la próxima!");}
+    menu();
+  }
+
+
+  public void menu() {
+    int opc = 0;
+    do {
+      System.out.println("1. Jugar. \n2.Salir.");
+      opc = scan.nextInt();
+    } while (opc != 1 && opc != 2);
+
+    switch(opc) {
+      case 1: crearJuego(); break;
+      case 2: System.out.println("Saliste del juego."); break;
+      default: menu();
     }
   }
 
@@ -158,7 +196,6 @@ public class AhorcadoServicio {
     }
     String palabraFinal = new String(palabraNueva);
     ahorcado.setMostrarLetras(palabraFinal);
-    // System.out.println(ahorcado.getMostrarLetras());
   }
 
 }

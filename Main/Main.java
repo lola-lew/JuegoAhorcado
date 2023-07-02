@@ -6,7 +6,8 @@ public class Main {
   public static void main(String[] args) {
     
     AhorcadoServicio jugar = new AhorcadoServicio();
-    jugar.crearJuego();
+    System.out.println("\nHoli! Bienvenidos a EL AHORCADO (^o^)");
+    jugar.menu();
 
   }
 
