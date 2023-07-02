@@ -15,7 +15,6 @@ public class AhorcadoServicio {
     elegirNivel();
     System.out.println("Para el nivel " + ahorcado.getNivel() + " tendrás " + ahorcado.getIntentosXnivel() + " intentos.");
     cadenaNivel();
-    // System.out.println(ahorcado.getPalabraAjugar());
     System.out.print("Descubrir palabra: ");
     agregarEspacios(ahorcado.getMostrarLetras());
     adivinarLetra();
@@ -54,11 +53,11 @@ public class AhorcadoServicio {
   public void cadenaNivel() {
     String[] palabras1, palabras2, palabras3 = new String[5];
     int nivel = ahorcado.getNivel();
-  // Se setea la cadena de palabras que corresponde al nivel elegido
     palabras1 = new String[]{"hola", "gato", "mundo", "mama", "lindo"};
     palabras2 = new String[]{"edificio", "ahorcado", "galaxia", "estrella", "universo"};
     palabras3 = new String[]{"sentimiento", "vegetariano", "bioquimica", "arquitectura", "contemplacion"};
-
+    
+    // Se setea la cadena de palabras que corresponde al nivel elegido
     switch(nivel) {
       case 1: ahorcado.setCadenaNivel(palabras1); break;
       case 2: ahorcado.setCadenaNivel(palabras2); break;
@@ -110,7 +109,7 @@ public class AhorcadoServicio {
         contador++;
       } else {
         if(i == ahorcado.getIntentosXnivel()-1 && intentoCorrecto == 0) {
-          System.out.println("¡Suerte la próxima! :-)");
+          System.out.println("¡Intentos incorrectos! Suerte la próxima! :-)");
           menu();
         } else {
           System.out.println("La letra no está.");       
@@ -141,8 +140,8 @@ public class AhorcadoServicio {
   public void menu() {
     int opc = 0;
     do {
-      System.out.println("1. Jugar. \n2.Salir.");
-      opc = scan.nextInt();
+      System.out.println("MENU\n1. Jugar. \n2.Salir.");
+      opc = Integer.parseInt(scan.nextLine());
     } while (opc != 1 && opc != 2);
 
     switch(opc) {
